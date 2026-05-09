@@ -3,154 +3,213 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>專業寶可夢圖鑑</title>
+    <title>探索台灣 | Explore Taiwan</title>
     <style>
-        /* 基礎版面設定 */
+        /* 基礎設定 */
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #f4f4f9;
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        h1, h2, h3 {
+            margin-top: 0;
+        }
+
+        /* 導覽列 */
+        nav {
+            background-color: #ffffff;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            padding: 15px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        nav .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: #009688; /* 台灣經典的青綠色調 */
+        }
+
+        nav ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            gap: 20px;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: #555;
+            font-weight: bold;
+        }
+
+        nav a:hover {
+            color: #009688;
+        }
+
+        /* 首頁橫幅 (Hero Section) */
+        .hero {
+            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('https://images.unsplash.com/photo-1552993873-0aa104ea7ebc?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80') center/cover;
+            height: 400px;
             display: flex;
             flex-direction: column;
+            justify-content: center;
             align-items: center;
-            padding: 50px 20px;
-            margin: 0;
-        }
-
-        h1 {
-            color: #333;
-            margin-bottom: 20px;
-        }
-
-        /* 搜尋區塊美化 */
-        .search-box {
-            margin-bottom: 30px;
-            display: flex;
-            gap: 10px;
-        }
-
-        .search-box input {
-            padding: 10px 15px;
-            font-size: 16px;
-            border: 2px solid #ddd;
-            border-radius: 25px;
-            width: 250px;
-            outline: none;
-            transition: border-color 0.3s;
-        }
-
-        .search-box input:focus {
-            border-color: #ff5350;
-        }
-
-        .search-box button {
-            padding: 10px 20px;
-            font-size: 16px;
-            background-color: #ff5350;
             color: white;
-            border: none;
-            border-radius: 25px;
-            cursor: pointer;
-            transition: background-color 0.3s;
-        }
-
-        .search-box button:hover {
-            background-color: #e03e3c;
-        }
-
-        /* 寶可夢卡片美化 */
-        .card {
-            background-color: white;
-            border-radius: 20px;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
-            padding: 30px;
-            width: 100%;
-            max-width: 350px;
             text-align: center;
-            display: none; /* 預設隱藏，找到資料才顯示 */
+            padding: 0 20px;
+        }
+
+        .hero h1 {
+            font-size: 48px;
+            margin-bottom: 10px;
+        }
+
+        .hero p {
+            font-size: 20px;
+            max-width: 600px;
+        }
+
+        /* 內容區塊共用設定 */
+        section {
+            padding: 60px 20px;
+            max-width: 1000px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        section h2 {
+            font-size: 32px;
+            color: #009688;
+            margin-bottom: 40px;
+        }
+
+        /* 卡片網格排版 (美食與景點) */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+        }
+
+        .card {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            overflow: hidden;
+            transition: transform 0.3s;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
         }
 
         .card img {
-            width: 200px;
+            width: 100%;
             height: 200px;
-            object-fit: contain;
-            margin-bottom: 15px;
+            object-fit: cover;
+            background-color: #eee; /* 圖片載入前的底色 */
         }
 
-        .card h2 {
-            margin: 0 0 10px 0;
-            text-transform: capitalize;
-            color: #222;
-            font-size: 28px;
-        }
-
-        /* 屬性標籤 */
-        .types {
-            display: flex;
-            justify-content: center;
-            gap: 10px;
-            margin-bottom: 20px;
-        }
-
-        .type-badge {
-            background-color: #6890F0; /* 預設顏色 */
-            color: white;
-            padding: 5px 15px;
-            border-radius: 20px;
-            font-size: 14px;
-            text-transform: capitalize;
-        }
-
-        /* 詳細資料區塊 */
-        .info {
-            background-color: #f9f9f9;
-            border-radius: 10px;
-            padding: 15px;
+        .card-content {
+            padding: 20px;
             text-align: left;
-            font-size: 15px;
-            color: #555;
         }
 
-        .info p {
-            margin: 8px 0;
-            display: flex;
-            justify-content: space-between;
-            border-bottom: 1px solid #eee;
-            padding-bottom: 5px;
+        .card-content h3 {
+            color: #d32f2f; /* 點綴的紅色 */
         }
 
-        .error-msg {
-            color: #ff5350;
-            font-weight: bold;
-            margin-top: 20px;
+        /* 頁尾 */
+        footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 20px;
+            margin-top: 40px;
         }
     </style>
 </head>
 <body>
 
-    <h1>Pokédex 寶可夢圖鑑</h1>
+    <nav>
+        <div class="logo">Explore Taiwan</div>
+        <ul>
+            <li><a href="#about">簡介</a></li>
+            <li><a href="#food">必吃美食</a></li>
+            <li><a href="#places">熱門景點</a></li>
+        </ul>
+    </nav>
 
-    <div class="search-box">
-        <input type="text" id="pokemon-input" placeholder="輸入英文名稱或 ID (例: 1, pikachu)" onkeypress="handleKeyPress(event)">
-        <button onclick="searchPokemon()">搜尋</button>
+    <div class="hero">
+        <h1>歡迎來到台灣</h1>
+        <p>亞洲的秘境，結合了壯麗的自然景觀、豐富的歷史文化，以及讓人流連忘返的夜市美食。</p>
     </div>
 
-    <div id="error-message" class="error-msg"></div>
+    <section id="about">
+        <h2>關於台灣 (About Taiwan)</h2>
+        <p style="text-align: left; font-size: 18px;">
+            台灣位於亞洲東部，是一座美麗的島嶼。這裡有高聳入雲的中央山脈、清澈湛藍的海岸線，還有熱情好客的人民。無論你是喜歡繁華的都市生活，還是寧靜的大自然，台灣都能滿足你的期待。
+        </p>
+    </section>
 
-    <div id="pokemon-card" class="card">
-        <img id="poke-img" src="" alt="Pokemon Image">
-        <h2 id="poke-name">Name</h2>
-        <div id="poke-types" class="types">
+    <section id="food">
+        <h2>必吃美食 (Must-Try Food)</h2>
+        <div class="grid">
+            <div class="card">
+                <img src="https://images.unsplash.com/photo-1558855567-1a341be85e63?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="珍珠奶茶">
+                <div class="card-content">
+                    <h3>珍珠奶茶 (Boba Tea)</h3>
+                    <p>發源於台灣的世界級飲品，Q彈的珍珠搭配香濃奶茶，絕對是來台必喝。</p>
+                </div>
             </div>
-        
-        <div class="info">
-            <p><span>身高:</span> <span id="poke-height"></span></p>
-            <p><span>體重:</span> <span id="poke-weight"></span></p>
-            <p><span>HP:</span> <span id="poke-hp"></span></p>
-            <p><span>攻擊 (Attack):</span> <span id="poke-attack"></span></p>
-            <p><span>防禦 (Defense):</span> <span id="poke-defense"></span></p>
+            <div class="card">
+                <img src="https://images.unsplash.com/photo-1596796939506-6967520e5c8e?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="牛肉麵">
+                <div class="card-content">
+                    <h3>牛肉麵 (Beef Noodle Soup)</h3>
+                    <p>醇厚的紅燒湯頭搭配軟嫩的牛肉與彈牙麵條，是台灣的代表性國民美食。</p>
+                </div>
+            </div>
+            <div class="card">
+                <img src="https://images.unsplash.com/photo-1627961138865-fb40bf1ba1a9?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="小籠包">
+                <div class="card-content">
+                    <h3>小籠包 (Soup Dumplings)</h3>
+                    <p>皮薄餡多，咬下去充滿鮮甜的高湯，是享譽國際的精緻點心。</p>
+                </div>
+            </div>
         </div>
-    </div>
+    </section>
 
-    <script src="app.js"></script>
+    <section id="places">
+        <h2>熱門景點 (Top Attractions)</h2>
+        <div class="grid">
+            <div class="card">
+                <img src="https://images.unsplash.com/photo-1563604113264-6e6b527815b3?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="台北101">
+                <div class="card-content">
+                    <h3>台北 101 (Taipei 101)</h3>
+                    <p>曾經是世界最高的建築，來到觀景台可以俯瞰整個台北盆地的日夜美景。</p>
+                </div>
+            </div>
+            <div class="card">
+                <img src="https://images.unsplash.com/photo-1601614761421-2a6c888e2b85?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="太魯閣">
+                <div class="card-content">
+                    <h3>太魯閣國家公園 (Taroko Gorge)</h3>
+                    <p>以雄偉壯麗的大理岩峽谷景觀聞名，是大自然鬼斧神工的傑作。</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2024 我的台灣介紹網頁. 歡迎來台灣玩！</p>
+    </footer>
+
 </body>
 </html>
