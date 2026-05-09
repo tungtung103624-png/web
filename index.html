@@ -7,15 +7,12 @@
     <style>
         /* 基礎設定 */
         body {
-            font-family: 'Helvetica Neue', Arial, sans-serif;
+            font-family: 'Helvetica Neue', Arial, 'PingFang TC', 'Microsoft JhengHei', sans-serif;
             margin: 0;
             padding: 0;
             color: #333;
             line-height: 1.6;
-        }
-
-        h1, h2, h3 {
-            margin-top: 0;
+            background-color: #f9f9f9;
         }
 
         /* 導覽列 */
@@ -34,7 +31,7 @@
         nav .logo {
             font-size: 24px;
             font-weight: bold;
-            color: #009688; /* 台灣經典的青綠色調 */
+            color: #009688;
         }
 
         nav ul {
@@ -55,10 +52,11 @@
             color: #009688;
         }
 
-        /* 首頁橫幅 (Hero Section) */
+        /* 首頁橫幅 (Hero Section) - 使用你的第一張圖片 1.png */
         .hero {
-            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('https://images.unsplash.com/photo-1552993873-0aa104ea7ebc?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80') center/cover;
-            height: 400px;
+            background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), 
+                        url('https://raw.githubusercontent.com/tungtung103624-png/web/main/1.png') center/cover no-repeat;
+            height: 450px;
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -71,17 +69,19 @@
         .hero h1 {
             font-size: 48px;
             margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
         }
 
         .hero p {
             font-size: 20px;
-            max-width: 600px;
+            max-width: 650px;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
         }
 
-        /* 內容區塊共用設定 */
+        /* 內容區塊 */
         section {
             padding: 60px 20px;
-            max-width: 1000px;
+            max-width: 1100px;
             margin: 0 auto;
             text-align: center;
         }
@@ -90,32 +90,44 @@
             font-size: 32px;
             color: #009688;
             margin-bottom: 40px;
+            position: relative;
+            display: inline-block;
         }
 
-        /* 卡片網格排版 (美食與景點) */
+        section h2::after {
+            content: '';
+            width: 50%;
+            height: 3px;
+            background: #009688;
+            position: absolute;
+            bottom: -10px;
+            left: 25%;
+        }
+
+        /* 卡片排版 */
         .grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 30px;
+            margin-top: 20px;
         }
 
         .card {
             background: white;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
             overflow: hidden;
-            transition: transform 0.3s;
+            transition: transform 0.3s ease;
         }
 
         .card:hover {
-            transform: translateY(-5px);
+            transform: translateY(-10px);
         }
 
         .card img {
             width: 100%;
-            height: 200px;
+            height: 250px;
             object-fit: cover;
-            background-color: #eee; /* 圖片載入前的底色 */
         }
 
         .card-content {
@@ -124,16 +136,16 @@
         }
 
         .card-content h3 {
-            color: #d32f2f; /* 點綴的紅色 */
+            margin: 0 0 10px 0;
+            color: #d32f2f;
         }
 
-        /* 頁尾 */
         footer {
             background-color: #333;
             color: white;
             text-align: center;
-            padding: 20px;
-            margin-top: 40px;
+            padding: 30px;
+            margin-top: 50px;
         }
     </style>
 </head>
@@ -143,72 +155,65 @@
         <div class="logo">Explore Taiwan</div>
         <ul>
             <li><a href="#about">簡介</a></li>
-            <li><a href="#food">必吃美食</a></li>
-            <li><a href="#places">熱門景點</a></li>
+            <li><a href="#food">在地美食</a></li>
+            <li><a href="#places">精選景點</a></li>
         </ul>
     </nav>
 
     <div class="hero">
-        <h1>歡迎來到台灣</h1>
-        <p>亞洲的秘境，結合了壯麗的自然景觀、豐富的歷史文化，以及讓人流連忘返的夜市美食。</p>
+        <h1>福爾摩沙 · 美麗之島</h1>
+        <p>探索台灣的每一個角落，從喧囂的都市到靜謐的山林，發現意想不到的美麗驚喜。</p>
     </div>
 
     <section id="about">
-        <h2>關於台灣 (About Taiwan)</h2>
-        <p style="text-align: left; font-size: 18px;">
-            台灣位於亞洲東部，是一座美麗的島嶼。這裡有高聳入雲的中央山脈、清澈湛藍的海岸線，還有熱情好客的人民。無論你是喜歡繁華的都市生活，還是寧靜的大自然，台灣都能滿足你的期待。
+        <h2>關於這塊土地</h2>
+        <p style="max-width: 800px; margin: 0 auto; font-size: 18px; color: #666;">
+            台灣不僅有著豐富的自然資源，更融合了多元的文化色彩。這裡的人情味與便利的生活，讓每一位到訪的旅客都能感受到賓至如歸的溫暖。
         </p>
     </section>
 
     <section id="food">
-        <h2>必吃美食 (Must-Try Food)</h2>
+        <h2>必吃在地美食</h2>
         <div class="grid">
             <div class="card">
-                <img src="https://images.unsplash.com/photo-1558855567-1a341be85e63?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="珍珠奶茶">
+                <img src="https://raw.githubusercontent.com/tungtung103624-png/web/main/2.jpg" alt="台灣美食 1">
                 <div class="card-content">
-                    <h3>珍珠奶茶 (Boba Tea)</h3>
-                    <p>發源於台灣的世界級飲品，Q彈的珍珠搭配香濃奶茶，絕對是來台必喝。</p>
+                    <h3>經典台味一</h3>
+                    <p>台灣美食以多元著稱，無論是夜市小吃還是精緻料理，都能滿足饕客的味蕾。</p>
                 </div>
             </div>
             <div class="card">
-                <img src="https://images.unsplash.com/photo-1596796939506-6967520e5c8e?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="牛肉麵">
+                <img src="https://raw.githubusercontent.com/tungtung103624-png/web/main/3.jpg" alt="台灣美食 2">
                 <div class="card-content">
-                    <h3>牛肉麵 (Beef Noodle Soup)</h3>
-                    <p>醇厚的紅燒湯頭搭配軟嫩的牛肉與彈牙麵條，是台灣的代表性國民美食。</p>
-                </div>
-            </div>
-            <div class="card">
-                <img src="https://images.unsplash.com/photo-1627961138865-fb40bf1ba1a9?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="小籠包">
-                <div class="card-content">
-                    <h3>小籠包 (Soup Dumplings)</h3>
-                    <p>皮薄餡多，咬下去充滿鮮甜的高湯，是享譽國際的精緻點心。</p>
+                    <h3>經典台味二</h3>
+                    <p>運用在地新鮮食材，傳承數十年的好滋味，是每一位台灣人心中的鄉愁。</p>
                 </div>
             </div>
         </div>
     </section>
 
     <section id="places">
-        <h2>熱門景點 (Top Attractions)</h2>
+        <h2>必訪熱門景點</h2>
         <div class="grid">
             <div class="card">
-                <img src="https://images.unsplash.com/photo-1563604113264-6e6b527815b3?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="台北101">
+                <img src="https://raw.githubusercontent.com/tungtung103624-png/web/main/4.jpg" alt="台灣景點 1">
                 <div class="card-content">
-                    <h3>台北 101 (Taipei 101)</h3>
-                    <p>曾經是世界最高的建築，來到觀景台可以俯瞰整個台北盆地的日夜美景。</p>
+                    <h3>城市地標</h3>
+                    <p>登上摩天大樓俯瞰城市全景，感受現代都市與歷史建築交織的魅力。</p>
                 </div>
             </div>
             <div class="card">
-                <img src="https://images.unsplash.com/photo-1601614761421-2a6c888e2b85?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="太魯閣">
+                <img src="https://raw.githubusercontent.com/tungtung103624-png/web/main/6.jpg" alt="台灣景點 2">
                 <div class="card-content">
-                    <h3>太魯閣國家公園 (Taroko Gorge)</h3>
-                    <p>以雄偉壯麗的大理岩峽谷景觀聞名，是大自然鬼斧神工的傑作。</p>
+                    <h3>自然奇觀</h3>
+                    <p>深入山林峽谷，見證大自然的鬼斧神工，洗滌心靈的疲憊。</p>
                 </div>
             </div>
         </div>
     </section>
 
     <footer>
-        <p>&copy; 2024 我的台灣介紹網頁. 歡迎來台灣玩！</p>
+        <p>&copy; 2024 Explore Taiwan. 圖片來源：你的 GitHub 儲存庫.</p>
     </footer>
 
 </body>
