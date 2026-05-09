@@ -3,11 +3,153 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>我的寶可夢圖鑑</title>
+    <title>專業寶可夢圖鑑</title>
+    <style>
+        /* 基礎版面設定 */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f4f9;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 50px 20px;
+            margin: 0;
+        }
+
+        h1 {
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        /* 搜尋區塊美化 */
+        .search-box {
+            margin-bottom: 30px;
+            display: flex;
+            gap: 10px;
+        }
+
+        .search-box input {
+            padding: 10px 15px;
+            font-size: 16px;
+            border: 2px solid #ddd;
+            border-radius: 25px;
+            width: 250px;
+            outline: none;
+            transition: border-color 0.3s;
+        }
+
+        .search-box input:focus {
+            border-color: #ff5350;
+        }
+
+        .search-box button {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #ff5350;
+            color: white;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .search-box button:hover {
+            background-color: #e03e3c;
+        }
+
+        /* 寶可夢卡片美化 */
+        .card {
+            background-color: white;
+            border-radius: 20px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+            padding: 30px;
+            width: 100%;
+            max-width: 350px;
+            text-align: center;
+            display: none; /* 預設隱藏，找到資料才顯示 */
+        }
+
+        .card img {
+            width: 200px;
+            height: 200px;
+            object-fit: contain;
+            margin-bottom: 15px;
+        }
+
+        .card h2 {
+            margin: 0 0 10px 0;
+            text-transform: capitalize;
+            color: #222;
+            font-size: 28px;
+        }
+
+        /* 屬性標籤 */
+        .types {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .type-badge {
+            background-color: #6890F0; /* 預設顏色 */
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 14px;
+            text-transform: capitalize;
+        }
+
+        /* 詳細資料區塊 */
+        .info {
+            background-color: #f9f9f9;
+            border-radius: 10px;
+            padding: 15px;
+            text-align: left;
+            font-size: 15px;
+            color: #555;
+        }
+
+        .info p {
+            margin: 8px 0;
+            display: flex;
+            justify-content: space-between;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 5px;
+        }
+
+        .error-msg {
+            color: #ff5350;
+            font-weight: bold;
+            margin-top: 20px;
+        }
+    </style>
 </head>
 <body>
-    <h1>寶可夢搜尋器</h1>
-    <div id="pokemon-container">載入中...</div>
+
+    <h1>Pokédex 寶可夢圖鑑</h1>
+
+    <div class="search-box">
+        <input type="text" id="pokemon-input" placeholder="輸入英文名稱或 ID (例: 1, pikachu)" onkeypress="handleKeyPress(event)">
+        <button onclick="searchPokemon()">搜尋</button>
+    </div>
+
+    <div id="error-message" class="error-msg"></div>
+
+    <div id="pokemon-card" class="card">
+        <img id="poke-img" src="" alt="Pokemon Image">
+        <h2 id="poke-name">Name</h2>
+        <div id="poke-types" class="types">
+            </div>
+        
+        <div class="info">
+            <p><span>身高:</span> <span id="poke-height"></span></p>
+            <p><span>體重:</span> <span id="poke-weight"></span></p>
+            <p><span>HP:</span> <span id="poke-hp"></span></p>
+            <p><span>攻擊 (Attack):</span> <span id="poke-attack"></span></p>
+            <p><span>防禦 (Defense):</span> <span id="poke-defense"></span></p>
+        </div>
+    </div>
 
     <script src="app.js"></script>
 </body>
